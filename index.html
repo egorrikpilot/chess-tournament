@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шахматный турнир "Слоник"</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        main {
+            padding: 20px;
+        }
+        .content {
+            text-align: center;
+        }
+        .content img {
+            max-width: 80%;
+            height: auto;
+            margin: 10px 0;
+        }
+        .tournament-info {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px auto;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px auto;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        form input, form button {
+            padding: 10px;
+            font-size: 1rem;
+        }
+        form button {
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #555;
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #333;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Шахматный турнир "Слоник"</h1>
+    </header>
+    <main>
+        <div class="content">
+            <h2>Добро пожаловать!</h2>
+            <p>Приглашаем вас принять участие в открытом рапид турнире "Слоник".
+        </div>
+        <div class="tournament-info">
+            <h3>Информация о турнире:</h3>
+            <p><strong>Дата проведения:</strong> 7 января 2025 года в 15:00</p>
+            <p><strong>Место:</strong> ул.Мира д.25/2</p>
+            <p><strong>Взнос:</strong> 300₽ </p>
+        </div>
+        <div class="form-container">
+            <h3>Регистрация</h3>
+            <form id="registration-form">
+                <input type="text" name="firstName" placeholder="Имя" required>
+                <input type="text" name="lastName" placeholder="Фамилия" required>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>Шахматный турнир "Слоник" © 2025</p>
+    </footer>
+
+    <script>
+        // Обработка формы
+        document.getElementById('registration-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Сбор данных из формы
+            const formData = new FormData(event.target);
+            const data = {
+                firstName: formData.get('firstName'),
+                lastName: formData.get('lastName')
+            };
+
+            // Отправка данных в MockAPI
+            fetch('https://677ad8f3671ca0306834fa4d.mockapi.io/participants', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Регистрация успешна! Спасибо за участие.');
+                } else {
+                    throw new Error('Ошибка при отправке данных');
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка регистрации:', error);
+                alert('Что-то пошло не так. Попробуйте снова.');
+            });
+        });
+    </script>
+</body>
+</html>
